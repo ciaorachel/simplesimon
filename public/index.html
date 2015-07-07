@@ -74,7 +74,6 @@
     		}, 500);
     	};
 
-
     	// This function controls the square(s) animated by Simon
     	function animateSimonSquare() {
     		var squares = $(".square");
@@ -89,10 +88,12 @@
 //    		console.log(simonSquareArray);
     	};
 
+    	function simonSequence() {
+    		
+    	}
 
     	// This listener attached to the START button
     	$("#begin").on("click", animateSimonSquare);
-
 
     	// This listener triggered by user input
     	$(".square").click(function(e) {
@@ -135,7 +136,7 @@
 
 		*/
 
-		
+
  // NOTES: Instead of comparing arrays, you should have a user index. and at the start of each round, the user index needs to be at 0. then user index needs to add one -- so userIndex++, and it moves to next item in simon sequence. one userIndex = simonSequence.length, then it's Simon's turn again to add another item.    	
 
 
