@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Simon</title>
+	<style>
+		.square {
+			width: 230px;
+			height: 230px;
+			border-collapse: collapse;
+			float: left;
+			margin: 10px;
+		}
+
+		#container {
+			width: 500px;
+			height: 500px;
+			margin: 0 auto;
+			border: #cccccc 1px solid;
+			background-color: #eeeeee;
+			padding: 5px;
+		}
+
+		#red {		
+			background-color: red;
+		}
+
+		#blue {
+			background-color: blue;
+		}
+		
+		#green {
+			background-color: green;
+		}
+
+		#yellow {
+			background-color: yellow;
+		}
+
+		.active {
+			opacity: 0.25;
+		}
+
+		#begin {
+			height: 25px;
+			width: 60px; 
+			margin: 0 auto;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Simple Simon</h1>
+	<button id="begin">START</button>
+	<div id="container">
+		<div class="square" id="red"></div>
+		<div class="square" id="blue"></div>
+		<div class="square" id="green"></div>
+		<div class="square" id="yellow"></div>
+	</div>
+	
+
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+	<script>
+	"use strict";
+    $(document).ready(function () {
+
+    	// This function controls animation style only 
+    	function animateSquare(id) {
+    		$("#" + id).addClass("active");
+    		setTimeout(function() {
+    			$("#" + id).removeClass("active");
+    		}, 500);
+    	};
+
+
+    	// This function controls the square(s) animated by Simon
+    	function animateSimonSquare() {
+    		var squares = $(".square");
+    		var selectRandomSquare = Math.floor(Math.random()*4);
+//    		console.log(selectRandomSquare);
+    		var randomSquare = squares[selectRandomSquare];
+//    		console.log(randomSquare);
+    		var id = randomSquare.getAttribute("id");
+//   		console.log(id);
+    		animateSquare(id);
+    		simonSquareArray.push(id);
+//    		console.log(simonSquareArray);
+    	};
+
+
+    	// This listener attached to the START button
+    	$("#begin").on("click", animateSimonSquare);
+
+
+    	// This listener triggered by user input
+    	$(".square").click(function(e) {
+    		var squareClicked = $(this).attr("id");
+    		animateSquare(squareClicked);
+    		var squareIndex = $(this).index();
+    		console.log(squareIndex);
+    		userSquareArray.push(squareIndex);
+    	});
+
+    	var simonSquareArray = [];
+//    	console.log(simonSquareArray);
+    	var userSquareArray = [];  
+//    	console.log(userSquareArray);
+
+
+    });	
+
+
+	/*  //MY FIRST RANDOMIZER FORMULA  	
+		var randomSquare = squares[Math.floor(Math.random()*squares.length)];
+	
+		var squares = $(".square"); / Commenting this out b/c wasn't working in functions below for some reason
+
+		function getRandomSquare() {
+	    	var squares = $(".square");
+	    	var randomSquare = Math.floor(Math.random()*4);
+	    	var animateRandomSquare = squares(randomSquare);
+	    	var id = animateRandomButton.getAttribute("id");
+	    	return animateSquare(id);
+	    	console.log(animateSquare(id));
+	    }
+
+
+    	
+
+    	for (var i = 0; i < squares.length; i++) {
+    		console.log(i);
+    	}
+
+		*/
+
+		
+ // NOTES: Instead of comparing arrays, you should have a user index. and at the start of each round, the user index needs to be at 0. then user index needs to add one -- so userIndex++, and it moves to next item in simon sequence. one userIndex = simonSequence.length, then it's Simon's turn again to add another item.    	
+
+
+    
+	</script>
+
+</body>
+</html>
