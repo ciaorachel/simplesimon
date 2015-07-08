@@ -2,70 +2,21 @@
 <html>
 <head>
 	<title>Simple Simon</title>
-	<style>
-		h1 {
-			text-align: center;
-			font-family: Arial, Helvetica, sans-serif;
-		}
-
-		.square {
-			width: 230px;
-			height: 230px;
-			border-collapse: collapse;
-			float: left;
-			margin: 10px;
-		}
-
-		#gameBoard {
-			width: 500px;
-			height: 500px;
-			margin: 0 auto;
-			border: #cccccc 1px solid;
-			background-color: #bbbbbb;
-			padding: 5px;
-		}
-
-		#red {		
-			background-color: red;
-		}
-
-		#blue {
-			background-color: blue;
-		}
-		
-		#green {
-			background-color: green;
-		}
-
-		#yellow {
-			background-color: yellow;
-		}
-
-		.active {
-			opacity: 0.5;
-		}
-
-		#begin {
-			display: block;
-			height: 35px;
-			width: 100px; 
-			margin: 10px auto;
-			padding: 5px;
-			background-color: #bbbbbb;
-		}
-	</style>
+	<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	
-	
+
 	<div id="container">
 		<h1>Simple Simon</h1>
-		<button id="begin">START</button>
+		<div id="controlButtons">
+			<button id="begin">Start</button>
+			<button id="round">Round</button>
+		</div>
 		<div id="gameBoard">
 			<div class="square" id="red"></div>
 			<div class="square" id="blue"></div>
 			<div class="square" id="green"></div>
-			<div class="square" id="yellow"></div>
+			<div class="square" id="purple"></div>
 		</div>
 	</div>
 	
@@ -78,9 +29,7 @@
     $(document).ready(function () {
 
     	var simonSequence = [];
-//    	console.log(simonSequence);
     	var userIndex = 0;  
-//    	console.log(userIndex);
 
     	// This function controls animation style only 
     	function animateSquare(id) {
@@ -94,13 +43,9 @@
     	function animateSimonSquare() {
     		var squares = $(".square");
     		var selectRandomSquare = Math.floor(Math.random()*4);
-//    		console.log(selectRandomSquare);
     		var randomSquare = squares[selectRandomSquare];
-//    		console.log(randomSquare);
     		var id = randomSquare.getAttribute("id");
-//   		console.log(id);
     		simonSequence.push(id);
-    		console.log(simonSequence);
     	};
 
     	// This listener attached to the START button
@@ -108,9 +53,10 @@
     		simonSequence = [];
     		animateSimonSquare();
     		simonSays();
+    		$(this).text("Restart");
     	})
 
-    	// This listener triggered by user input
+    	// This is for user input, compares user input to simon sequence
     	$(".square").click(function(e) {
     		var squareClicked = $(this).attr("id");
     		animateSquare(squareClicked);
@@ -126,7 +72,6 @@
 			}
     	});
 
-
     	// This function runs the game 
     	function simonSays() {
     		var i = 0;
@@ -139,9 +84,10 @@
     		}, 1000);
     	}
 
+    	//This function tells Simon to take new turn, updates round #
     	function copy() {
     		animateSimonSquare();
-    		$("#round").text("Round: " + simonSequence.length);
+    		$("#round").text("Round " + simonSequence.length);
     		simonSays();
     	}
 
@@ -149,11 +95,6 @@
     });	
 
 
-
- // NOTES: Instead of comparing arrays, you should have a user index. and at the start of each round, the user index needs to be at 0. then user index needs to add one -- so userIndex++, and it moves to next item in simon sequence. one userIndex = simonSequence.length, then it's Simon's turn again to add another item.    	
-
-
-    
 	</script>
 
 </body>
