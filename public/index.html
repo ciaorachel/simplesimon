@@ -8,16 +8,15 @@
 
 	<div id="container">
 		<h1>Simple Simon</h1>
-		<div id="controlButtons">
-			<button id="begin">Start</button>
-			<button id="round">Round</button>
-		</div>
+ 
 		<div id="gameBoard">
 			<div class="square" id="red"></div>
 			<div class="square" id="blue"></div>
 			<div class="square" id="green"></div>
 			<div class="square" id="purple"></div>
+            <button id="counter">Start</button>         
 		</div>
+
 	</div>
 	
 
@@ -49,11 +48,12 @@
     	};
 
     	// This listener attached to the START button
-    	$("#begin").click(function() {
+    	$("#counter").click(function() {
     		simonSequence = [];
     		animateSimonSquare();
     		simonSays();
     		$(this).text("Restart");
+            $("#counter").text("Round 1");
     	})
 
     	// This is for user input, compares user input to simon sequence
@@ -67,7 +67,7 @@
 					userIndex = 0;
 				}
 			} else {
-				alert("game over");
+				alert("Game Over");
 				location.reload(true);
 			}
     	});
@@ -81,13 +81,13 @@
     			}
     			animateSquare(simonSequence[i]);
     			i += 1;
-    		}, 1000);
+    		}, 600);
     	}
 
     	//This function tells Simon to take new turn, updates round #
     	function copy() {
     		animateSimonSquare();
-    		$("#round").text("Round " + simonSequence.length);
+    		$("#counter").text("Round " + simonSequence.length);
     		simonSays();
     	}
 
